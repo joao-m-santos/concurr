@@ -1,5 +1,5 @@
 const API_KEY = process.env.REACT_APP_API_KEY;
-const BASE_URL = `https://api.exchangeratesapi.io/v1/`;
+const BASE_URL = `http://api.exchangeratesapi.io/v1/`;
 const ACCESS_KEY = `?access_key=${API_KEY}`;
 
 /**

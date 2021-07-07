@@ -21,7 +21,7 @@ function Converter({ proMode }) {
 
   useEffect(() => {
     // Get available symbol list on start-up
-    getSymbols();
+    !symbolList && getSymbols();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
