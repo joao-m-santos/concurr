@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# concurr
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The agreeable online currency converter.
 
-## Available Scripts
+## About
 
-In the project directory, you can run:
+Simple web-based currency converter done as a technical assignment for a Frontend role recruitment process.
 
-### `npm start`
+**Features requested:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- ✅ Ability to select the source and target currencies
+- ✅ Ability to input the source amount
+- ✅ Conversion rates must be pulled from a third-party API. (https://ratesapi.io/ recommended)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**Extra features (recommended):**
 
-### `npm test`
+- Ability to perform multiple conversions at the same time
+- Option to select a different date for the conversion rate
+- ✅ Bidirectional conversion (user can input either source or target amount)
+- ✅ Show historical rates evolution (e.g. with chart)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Approach
 
-### `npm run build`
+I started out with the [Create React App](https://create-react-app.dev/) setup. I then re-organized the file structure a bit and removed unnecessary files.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To streamline development, I used the [Chakra UI](https://chakra-ui.com/) component library.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+I got a free tier API key from [exchangeratesapi.io](https://exchangeratesapi.io/) and created a small interface file for API calls (`service.js`). For the historical rates evolution, I had to manually perform requests for specific dates, since the API's Time-Series Endpoint is unnavailable for the free tier. For the graph visualization, I used [Recharts](https://recharts.org/).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+Simply select two currencies and input an amount to convert. The conversion will be done automatically.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+By enabling the "Pro mode", you'll get access to a higher level of precision, two-way conversion and a historical rate evolution (from last week).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> **NOTE:** The API's free tier is quite limited when it comes to base currencies. `EUR` seems to be the only that doesn't return an error.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Component rundown
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **App.js**
 
-## Learn More
+  Entry point, wraps the other components with some layout elements. Also manages Pro mode.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Navbar.js**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  Draws the app's navbar. Toggles Pro mode.
 
-### Code Splitting
+- **Converter.js**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  Controls the amount and currency values. Also has the conversion logic.
 
-### Analyzing the Bundle Size
+- **CurrencyInput.js**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  Draws the number input and the currency selector as a component.
 
-### Making a Progressive Web App
+- **Graph.js**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  Draws the historical rates graph.
 
-### Advanced Configuration
+## Running the app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The setup is very simple:
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. `npm install` to install dependencies.
+2. `npm start` to serve the app locally.
+3. `npm test` to run unit tests.
+4. `npm build` to build the app for production.

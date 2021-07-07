@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Box, Container, Text } from "@chakra-ui/react";
+
+import Navbar from "./components/Navbar";
+import Converter from "./components/Converter";
 
 function App() {
+  const [proMode, setProMode] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box className="app">
+      <Navbar proMode={proMode} setProMode={setProMode}></Navbar>
+      <Container centerContent>
+        <Text my={12} align="center">
+          The agreeable online currency converter.
+        </Text>
+        <Converter proMode={proMode}></Converter>
+      </Container>
+    </Box>
   );
 }
 
