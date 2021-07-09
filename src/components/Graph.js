@@ -92,7 +92,7 @@ function Graph({ source, target }) {
           <Tooltip />
           <CartesianGrid stroke="#f5f5f5" />
           <Line
-            type="monotone"
+            type="linear"
             dataKey="rate"
             stroke="#00B5D8"
             dot={{ stroke: "#76E4F7", strokeWidth: 2 }}
