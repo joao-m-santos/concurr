@@ -25,7 +25,11 @@ I started out with the [Create React App](https://create-react-app.dev/) setup. 
 
 To streamline development, I used the [Chakra UI](https://chakra-ui.com/) component library.
 
-I got a free tier API key from [exchangeratesapi.io](https://exchangeratesapi.io/) and created a small interface file for API calls (`service.js`). For the historical rates evolution, I had to manually perform requests for specific dates, since the API's Time-Series Endpoint is unnavailable for the free tier. For the graph visualization, I used [Recharts](https://recharts.org/).
+Initially, I got a free tier API key from [exchangeratesapi.io](https://exchangeratesapi.io/) and created a small interface file for API calls (`service.js`). For the historical rates evolution, I had to manually perform requests for specific dates, since the API's Time-Series Endpoint is unnavailable for the free tier.
+
+Due to hosting problems and the free-tier limitations, I switched to the free [exchangerate.host](https://exchangerate.host/#/) API. With this API I was able to undo the weird time-series logic as well.
+
+For the graph visualization, I used [Recharts](https://recharts.org/).
 
 ## Usage
 

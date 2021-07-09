@@ -47,11 +47,14 @@ function CurrencyInput(props) {
             onChange={onSymbolChange}
           >
             {symbolList ? (
-              Object.entries(symbolList).map(([symbol, label]) => (
-                <option value={symbol} key={symbol}>
-                  {symbol} ({label})
-                </option>
-              ))
+              Object.values(symbolList).map((value) => {
+                const { code, description } = value;
+                return (
+                  <option value={code} key={code}>
+                    {code} ({description})
+                  </option>
+                );
+              })
             ) : (
               <option value="" disabled>
                 Loading...

@@ -1,6 +1,4 @@
-const API_KEY = process.env.REACT_APP_API_KEY;
-const BASE_URL = `http://api.exchangeratesapi.io/v1/`;
-const ACCESS_KEY = `?access_key=${API_KEY}`;
+const BASE_URL = `https://api.exchangerate.host/`;
 
 /**
  * Calls the API `symbols` endpoint and processes the response.
@@ -9,7 +7,7 @@ const ACCESS_KEY = `?access_key=${API_KEY}`;
  */
 async function getSymbols() {
   try {
-    const response = await fetch(BASE_URL + "symbols" + ACCESS_KEY);
+    const response = await fetch(BASE_URL + "symbols");
     const responseObject = await response.json();
     return responseObject.symbols;
   } catch (error) {
@@ -27,7 +25,7 @@ async function getSymbols() {
 async function getRate(source, target) {
   try {
     const response = await fetch(
-      BASE_URL + "latest" + ACCESS_KEY + `&base=${source}&symbols=${target}`
+      BASE_URL + `latest?base=${source}&symbols=${target}`
     );
     const responseObject = await response.json();
     return responseObject.rates[target];
@@ -37,34 +35,32 @@ async function getRate(source, target) {
 }
 
 /**
- * Calls the API historical rate endpoint and processes the response.
+ * Calls the API `timeseries` endpoint and processes the response.
  *
  * @param { string } source The source symbol.
  * @param { string } target The target symbol.
  * @returns { Array<{ date: string, rate: number }> } An array of rates by date if successful, an empty array otherwise.
  */
 async function getSeries(source, target) {
-  const requestArray = [];
   try {
-    for (let i = 6; i >= 0; i--) {
-      const format = (date) => date.toISOString().split("T")[0];
-      const d = new Date();
-      d.setDate(d.getDate() - i);
+    const format = (date) => date.toISOString().split("T")[0];
 
-      const response = await fetch(
-        BASE_URL + format(d) + ACCESS_KEY + `&base=${source}&symbols=${target}`
-      );
-      requestArray.push(await response.json());
-    }
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 6);
+    const endDate = new Date();
 
-    const values = await Promise.all(requestArray);
+    const response = await fetch(
+      BASE_URL +
+        `timeseries?base=${source}&symbols=${target}&start_date=${format(
+          startDate
+        )}&end_date=${format(endDate)}`
+    );
+    const responseObject = await response.json();
 
-    return values.map((response) => {
-      return {
-        date: response.date,
-        rate: response.rates[target]
-      };
-    });
+    return Object.entries(responseObject.rates).map(([date, rate]) => ({
+      date: date,
+      rate: rate[target]
+    }));
   } catch (error) {
     return [];
   }
